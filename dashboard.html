@@ -1,83 +1,156 @@
+<!-- dashboard.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard | MyApplication</title>
+    <title>Dashboard</title>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <style>
-        body { background: #f1f5f9; font-family: 'Inter', sans-serif; }
-        .wrapper { display: flex; min-height: 100vh; }
-        .sidebar { width: 280px; background: #0f172a; color: white; padding: 30px; display: flex; flex-direction: column; }
-        .main-content { flex: 1; padding: 40px; }
-        .glass-card { background: white; border-radius: 24px; padding: 30px; border: 1px solid rgba(255,255,255,0.3); box-shadow: 0 10px 30px rgba(0,0,0,0.03); }
-        
-        .profile-img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 4px solid #3b82f6; background: #ffffff; }
-        .placeholder-circle { width: 100px; height: 100px; border-radius: 50%; background: #334155; display: flex; align-items: center; justify-content: center; font-size: 2rem; border: 4px solid #3b82f6; }
-        
-        .logout-link { margin-top: auto; color: #94a3b8; text-decoration: none; font-weight: 600; transition: color 0.2s; }
-        .logout-link:hover { color: #f87171; }
+
+        body{
+            background:#f1f5f9;
+            font-family:Arial;
+        }
+
+        .wrapper{
+            display:flex;
+            min-height:100vh;
+        }
+
+        .sidebar{
+            width:260px;
+            background:#0f172a;
+            color:white;
+            padding:30px;
+        }
+
+        .main{
+            flex:1;
+            padding:40px;
+        }
+
+        .card-box{
+            background:white;
+            border-radius:20px;
+            padding:30px;
+            box-shadow:0 5px 20px rgba(0,0,0,0.05);
+        }
+
+        .profile-img{
+            width:120px;
+            height:120px;
+            border-radius:50%;
+            object-fit:cover;
+            border:4px solid #3b82f6;
+        }
+
     </style>
 </head>
 <body>
-    <div class="wrapper">
-        <nav class="sidebar">
-            <h4 class="fw-bold mb-5">MY APP</h4>
-            <div class="mb-4">
-                <div id="imgContainer">
-                    <img id="profileImage" src="" class="profile-img" style="display:none;">
-                    <div id="noImage" class="placeholder-circle">👤</div>
-                </div>
-                <h5 class="mt-3 mb-0" id="userNameDisplay">...</h5>
-                <p class="small text-muted" style="color: #94a3b8 !important;">Active Member</p>
-            </div>
-            <a href="#" class="logout-link" onclick="logout()">Logout</a>
-        </nav>
-        <main class="main-content">
-            <div class="glass-card">
-                <h2 class="fw-bold mb-4">Welcome back, <span id="welcomeName" style="color: #3b82f6;">...</span>!</h2>
-                <div class="row g-4">
-                    <div class="col-md-6">
-                        <div class="p-4 border rounded-4">
-                            <label class="text-muted small fw-bold mb-1">LOCATION</label>
-                            <p class="h5 mt-1" id="userAddress">...</p>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="p-4 border rounded-4">
-                            <label class="text-muted small fw-bold mb-1">ACCOUNT STATUS</label>
-                            <p class="h5 mt-1 text-success">Verified Account</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
-    </div>
-    <script>
-        const user = sessionStorage.getItem('loggedInUser');
-        if(!user) {
-            window.location.href = 'login.html';
-        } else {
-            const savedData = localStorage.getItem('user_' + user);
-            if (savedData) {
-                const data = JSON.parse(savedData);
-                
-                document.getElementById('userNameDisplay').innerText = data.username;
-                document.getElementById('welcomeName').innerText = data.username;
-                document.getElementById('userAddress').innerText = data.address;
-                
-                if(data.profilePic) {
-                    document.getElementById('profileImage').src = data.profilePic;
-                    document.getElementById('profileImage').style.display = 'block';
-                    document.getElementById('noImage').style.display = 'none';
-                }
-            }
-        }
 
-        function logout() {
-            sessionStorage.removeItem('loggedInUser');
-            window.location.href = 'login.html';
-        }
-    </script>
+<div class="wrapper">
+
+    <div class="sidebar">
+
+        <h3>MY APP</h3>
+
+        <img id="profileImage" class="profile-img mt-4">
+
+        <h5 class="mt-3" id="displayName"></h5>
+
+        <button onclick="logout()" class="btn btn-danger mt-4">
+            Logout
+        </button>
+
+    </div>
+
+    <div class="main">
+
+        <div class="card-box">
+
+            <h2 class="mb-4">
+                Welcome,
+                <span id="welcomeName"></span>
+            </h2>
+
+            <div class="row">
+
+                <div class="col-md-6 mb-3">
+                    <div class="border rounded p-3">
+                        <strong>Full Name</strong>
+                        <p id="fullName"></p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <div class="border rounded p-3">
+                        <strong>Email</strong>
+                        <p id="email"></p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <div class="border rounded p-3">
+                        <strong>Contact</strong>
+                        <p id="contact"></p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <div class="border rounded p-3">
+                        <strong>Address</strong>
+                        <p id="address"></p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+const userData = sessionStorage.getItem('activeUserData');
+
+if(!userData){
+
+    window.location.href = "login.html";
+
+}else{
+
+    const user = JSON.parse(userData);
+
+    document.getElementById('profileImage').src = user.profilePic;
+
+    document.getElementById('displayName').innerText = user.username;
+
+    document.getElementById('welcomeName').innerText = user.username;
+
+    document.getElementById('fullName').innerText = user.fullname;
+
+    document.getElementById('email').innerText = user.email;
+
+    document.getElementById('contact').innerText = user.contact;
+
+    document.getElementById('address').innerText = user.address;
+
+}
+
+function logout(){
+
+    sessionStorage.removeItem('activeUserData');
+
+    window.location.href = "login.html";
+
+}
+
+</script>
+
 </body>
-</html>
+    </html>
