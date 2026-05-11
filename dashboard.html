@@ -1,127 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+<meta charset="UTF-8">
+<title>Dashboard</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-
+<style>
+body{background:#f1f5f9;font-family:Arial}
+.wrapper{display:flex;min-height:100vh}
+.sidebar{width:250px;background:#0f172a;color:white;padding:20px}
+.main{flex:1;padding:30px}
+.card-box{background:white;padding:20px;border-radius:15px;margin-bottom:20px}
+.profile-img{width:100px;height:100px;border-radius:50%;object-fit:cover}
+</style>
 </head>
 <body>
 
 <div class="wrapper">
 
-    <!-- SIDEBAR -->
-    <div class="sidebar">
+<div class="sidebar">
+<h3>MY APP</h3>
 
-        <h3>MY APP</h3>
+<img id="profileImage" class="profile-img mt-3">
 
-        <img id="profileImage" class="profile-img mt-4">
+<h5 id="displayName"></h5>
 
-        <h5 class="mt-3" id="displayName">User</h5>
+<button onclick="logout()" class="btn btn-danger mt-3">Logout</button>
+</div>
 
-        <button onclick="logout()" class="btn btn-danger mt-4">
-            Logout
-        </button>
+<div class="main">
 
-    </div>
+<div class="card-box">
+<h2>Welcome <span id="welcomeName"></span></h2>
+</div>
 
-    <!-- MAIN -->
-    <div class="main">
+<div class="card-box">
+<h4>Personal Information</h4>
+<p><b>Name:</b> <span id="fullName"></span></p>
+<p><b>Email:</b> <span id="email"></span></p>
+<p><b>Contact:</b> <span id="contact"></span></p>
+<p><b>Address:</b> <span id="address"></span></p>
+</div>
 
-        <!-- WELCOME -->
-        <div class="card-box">
-            <h2>Welcome, <span id="welcomeName"></span></h2>
-        </div>
+<div class="card-box">
+<h4>Educational Background</h4>
+<p>Jose Rizal Memorial State University</p>
+<p>BS Information Technology</p>
+<p>2nd Year</p>
+</div>
 
-        <!-- PERSONAL INFO -->
-        <div class="card-box">
-            <h4 class="section-title">Personal Information</h4>
-
-            <div class="row">
-                <div class="col-md-6">
-                    <strong>Full Name</strong>
-                    <p id="fullName"></p>
-                </div>
-
-                <div class="col-md-6">
-                    <strong>Email</strong>
-                    <p id="email"></p>
-                </div>
-
-                <div class="col-md-6">
-                    <strong>Contact</strong>
-                    <p id="contact"></p>
-                </div>
-
-                <div class="col-md-6">
-                    <strong>Address</strong>
-                    <p id="address"></p>
-                </div>
-            </div>
-        </div>
-
-        <!-- EDUCATIONAL BACKGROUND -->
-        <div class="card-box">
-            <h4 class="section-title">Educational Background</h4>
-
-            <div class="row">
-                <div class="col-md-6">
-                    <strong>School</strong>
-                    <p>Jose Rizal Memorial State University</p>
-                </div>
-
-                <div class="col-md-6">
-                    <strong>Course</strong>
-                    <p>BS Information Technology</p>
-                </div>
-
-                <div class="col-md-6">
-                    <strong>Year Level</strong>
-                    <p>2nd Year</p>
-                </div>
-
-                <div class="col-md-6">
-                    <strong>Status</strong>
-                    <p>Currently Enrolled</p>
-                </div>
-            </div>
-        </div>
-
-    </div>
+</div>
 
 </div>
 
 <script>
-// SAFE LOGIN CHECK
-const userData = sessionStorage.getItem('activeUserData');
+const userData = sessionStorage.getItem("activeUserData");
 
-if (!userData) {
+if(!userData){
     alert("Please login first!");
     window.location.href = "login.html";
-} else {
-
-    const user = JSON.parse(userData);
-
-    // PROFILE IMAGE SAFETY
-    if (user.profilePic) {
-        document.getElementById('profileImage').src = user.profilePic;
-    }
-
-    document.getElementById('displayName').innerText = user.username || "User";
-    document.getElementById('welcomeName').innerText = user.username || "User";
-
-    document.getElementById('fullName').innerText = user.fullname || "";
-    document.getElementById('email').innerText = user.email || "";
-    document.getElementById('contact').innerText = user.contact || "";
-    document.getElementById('address').innerText = user.address || "";
 }
 
-// LOGOUT
-function logout() {
-    sessionStorage.removeItem('activeUserData');
+const user = JSON.parse(userData);
+
+profileImage.src = user.profilePic;
+displayName.innerText = user.username;
+welcomeName.innerText = user.username;
+
+fullName.innerText = user.fullname;
+email.innerText = user.email;
+contact.innerText = user.contact;
+address.innerText = user.address;
+
+function logout(){
+    sessionStorage.clear();
     window.location.href = "login.html";
 }
 </script>
