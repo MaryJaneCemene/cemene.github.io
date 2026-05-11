@@ -1,82 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Dashboard</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-<style>
-body{background:#f1f5f9;font-family:Arial}
-.wrapper{display:flex;min-height:100vh}
-.sidebar{width:250px;background:#0f172a;color:white;padding:20px}
-.main{flex:1;padding:30px}
-.card-box{background:white;padding:20px;border-radius:15px;margin-bottom:20px}
-.profile-img{width:100px;height:100px;border-radius:50%;object-fit:cover}
-</style>
-</head>
-<body>
-
-<div class="wrapper">
-
-<div class="sidebar">
-<h3>MY APP</h3>
-
-<img id="profileImage" class="profile-img mt-3">
-
-<h5 id="displayName"></h5>
-
-<button onclick="logout()" class="btn btn-danger mt-3">Logout</button>
-</div>
-
-<div class="main">
-
-<div class="card-box">
-<h2>Welcome <span id="welcomeName"></span></h2>
-</div>
-
-<div class="card-box">
-<h4>Personal Information</h4>
-<p><b>Name:</b> <span id="fullName"></span></p>
-<p><b>Email:</b> <span id="email"></span></p>
-<p><b>Contact:</b> <span id="contact"></span></p>
-<p><b>Address:</b> <span id="address"></span></p>
-</div>
-
-<div class="card-box">
-<h4>Educational Background</h4>
-<p>Jose Rizal Memorial State University</p>
-<p>BS Information Technology</p>
-<p>2nd Year</p>
-</div>
-
-</div>
-
-</div>
-
 <script>
-const userData = sessionStorage.getItem("activeUserData");
+const userData = sessionStorage.getItem('activeUserData');
 
 if(!userData){
-    alert("Please login first!");
+    alert("Please login first");
     window.location.href = "login.html";
 }
 
 const user = JSON.parse(userData);
 
-profileImage.src = user.profilePic;
-displayName.innerText = user.username;
-welcomeName.innerText = user.username;
+// SAFE DISPLAY (prevents errors)
+if(user.profilePic){
+    document.getElementById('profileImage').src = user.profilePic;
+}
 
-fullName.innerText = user.fullname;
-email.innerText = user.email;
-contact.innerText = user.contact;
-address.innerText = user.address;
+document.getElementById('displayName').innerText = user.username || "";
+document.getElementById('welcomeName').innerText = user.username || "";
+
+document.getElementById('fullName').innerText = user.fullname || "";
+document.getElementById('email').innerText = user.email || "";
+document.getElementById('contact').innerText = user.contact || "";
+document.getElementById('address').innerText = user.address || "";
 
 function logout(){
-    sessionStorage.clear();
+    sessionStorage.removeItem('activeUserData');
     window.location.href = "login.html";
 }
 </script>
-
-</body>
-</html>
