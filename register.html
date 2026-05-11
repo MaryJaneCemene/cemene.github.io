@@ -2,69 +2,80 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <style>
-        body{
-            background:#f1f5f9;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            min-height:100vh;
-            font-family:Arial;
-        }
+  <style>
+    body{
+      background:#f1f5f9;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      min-height:100vh;
+      font-family:Arial;
+      padding:20px;
+    }
 
-        .card-box{
-            background:white;
-            padding:35px;
-            border-radius:20px;
-            width:100%;
-            max-width:450px;
-            box-shadow:0 5px 20px rgba(0,0,0,0.1);
-        }
+    .card-box{
+      background:white;
+      padding:35px;
+      border-radius:20px;
+      width:100%;
+      max-width:500px;
+      box-shadow:0 5px 20px rgba(0,0,0,0.1);
+    }
 
-        .form-control{
-            margin-bottom:15px;
-        }
+    .form-control{
+      margin-bottom:15px;
+    }
 
-        .btn-primary{
-            width:100%;
-        }
-    </style>
+    .btn-primary{
+      width:100%;
+    }
+  </style>
 </head>
 <body>
 
 <div class="card-box">
 
-    <h3 class="mb-4">Create Account</h3>
+  <h3 class="mb-4">Create Account</h3>
 
-    <form id="registerForm">
+  <form id="registerForm">
 
-        <input type="text" id="fullname" class="form-control" placeholder="Full Name" required>
+    <input type="text" id="fullname" class="form-control" placeholder="Full Name" required>
 
-        <input type="text" id="username" class="form-control" placeholder="Username" required>
+    <input type="number" id="age" class="form-control" placeholder="Age" required>
 
-        <input type="email" id="email" class="form-control" placeholder="Email" required>
+    <select id="gender" class="form-control" required>
+      <option value="">Select Gender</option>
+      <option>Male</option>
+      <option>Female</option>
+    </select>
 
-        <input type="text" id="contact" class="form-control" placeholder="Contact Number" required>
+    <input type="email" id="email" class="form-control" placeholder="Email" required>
 
-        <input type="text" id="address" class="form-control" placeholder="Address" required>
+    <input type="text" id="contact" class="form-control" placeholder="Contact Number" required>
 
-        <input type="password" id="password" class="form-control" placeholder="Password" required>
+    <input type="text" id="address" class="form-control" placeholder="Address" required>
 
-        <input type="file" id="profile_pic" class="form-control" accept="image/*" required>
+    <input type="text" id="username" class="form-control" placeholder="Username" required>
 
-        <button type="submit" class="btn btn-primary">Register</button>
+    <input type="password" id="password" class="form-control" placeholder="Password" required>
 
-    </form>
+    <input type="file" id="profile" class="form-control" accept="image/*" required>
 
-    <div class="text-center mt-3">
-        <a href="login.html">Already have account?</a>
-    </div>
+    <button type="submit" class="btn btn-primary mt-3">
+      Register
+    </button>
+
+  </form>
+
+  <div class="text-center mt-3">
+    <a href="login.html">Already have an account?</a>
+  </div>
 
 </div>
 
@@ -72,42 +83,46 @@
 
 document.getElementById('registerForm').addEventListener('submit', function(e){
 
-    e.preventDefault();
+  e.preventDefault();
 
-    const fullname = document.getElementById('fullname').value;
-    const username = document.getElementById('username').value;
-    const email = document.getElementById('email').value;
-    const contact = document.getElementById('contact').value;
-    const address = document.getElementById('address').value;
-    const password = document.getElementById('password').value;
+  const fullname = document.getElementById('fullname').value;
+  const age = document.getElementById('age').value;
+  const gender = document.getElementById('gender').value;
+  const email = document.getElementById('email').value;
+  const contact = document.getElementById('contact').value;
+  const address = document.getElementById('address').value;
+  const username = document.getElementById('username').value;
+  const password = document.getElementById('password').value;
 
-    const file = document.getElementById('profile_pic').files[0];
+  const file = document.getElementById('profile').files[0];
 
-    const reader = new FileReader();
+  const reader = new FileReader();
 
-    reader.onload = function(event){
+  reader.onload = function(event){
 
-        const profilePic = event.target.result;
+    const profilePic = event.target.result;
 
-        const user = {
-            fullname,
-            username,
-            email,
-            contact,
-            address,
-            password,
-            profilePic
-        };
-
-        localStorage.setItem('user_' + username, JSON.stringify(user));
-
-        alert("Registration Successful!");
-
-        window.location.href = "login.html";
-
+    const user = {
+      fullname,
+      age,
+      gender,
+      email,
+      contact,
+      address,
+      username,
+      password,
+      profilePic
     };
 
-    reader.readAsDataURL(file);
+    localStorage.setItem('user_' + username, JSON.stringify(user));
+
+    alert("Registration Successful!");
+
+    window.location.href = "login.html";
+
+  };
+
+  reader.readAsDataURL(file);
 
 });
 
