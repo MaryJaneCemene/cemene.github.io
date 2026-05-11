@@ -4,30 +4,13 @@
 <meta charset="UTF-8">
 <title>Login</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-<style>
-body{
-    background:#f1f5f9;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
-    font-family:Arial;
-}
-.card-box{
-    background:white;
-    padding:30px;
-    border-radius:15px;
-    width:400px;
-    box-shadow:0 5px 20px rgba(0,0,0,0.1);
-}
-</style>
 </head>
-<body>
 
-<div class="card-box">
+<body class="d-flex justify-content-center align-items-center vh-100 bg-light">
 
-<h3>Login</h3>
+<div class="card p-4 shadow" style="width:350px">
+
+<h3 class="mb-3">Login</h3>
 
 <form id="loginForm">
 
@@ -44,25 +27,30 @@ body{
 document.getElementById("loginForm").addEventListener("submit", function(e){
     e.preventDefault();
 
-    const userData = localStorage.getItem("user_" + username.value);
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value;
 
-    if(!userData){
+    const savedUser = localStorage.getItem("user_" + username);
+
+    if(!savedUser){
         alert("Account not found!");
         return;
     }
 
-    const user = JSON.parse(userData);
+    const user = JSON.parse(savedUser);
 
-    if(user.password === password.value){
+    console.log("DB Password:", user.password);
+    console.log("Input Password:", password);
+
+    if(user.password === password){
 
         sessionStorage.setItem("activeUserData", JSON.stringify(user));
 
         alert("Login Successful!");
-
         window.location.href = "dashboard.html";
 
     } else {
-        alert("Wrong password!");
+        alert("Incorrect password!");
     }
 });
 </script>
