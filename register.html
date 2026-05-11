@@ -24,7 +24,7 @@
       padding:35px;
       border-radius:20px;
       width:100%;
-      max-width:500px;
+      max-width:600px;
       box-shadow:0 5px 20px rgba(0,0,0,0.1);
     }
 
@@ -44,6 +44,8 @@
   <h3 class="mb-4">Create Account</h3>
 
   <form id="registerForm">
+
+    <h5 class="mb-3">Personal Information</h5>
 
     <input type="text" id="fullname" class="form-control" placeholder="Full Name" required>
 
@@ -66,6 +68,18 @@
     <input type="password" id="password" class="form-control" placeholder="Password" required>
 
     <input type="file" id="profile" class="form-control" accept="image/*" required>
+
+    <h5 class="mt-4 mb-3">Educational Background</h5>
+
+    <input type="text" id="elementary" class="form-control" placeholder="Elementary School" required>
+
+    <input type="text" id="juniorhigh" class="form-control" placeholder="Junior High School" required>
+
+    <input type="text" id="seniorhigh" class="form-control" placeholder="Senior High School" required>
+
+    <input type="text" id="college" class="form-control" placeholder="College / University" required>
+
+    <input type="text" id="course" class="form-control" placeholder="Course" required>
 
     <button type="submit" class="btn btn-primary mt-3">
       Register
@@ -94,6 +108,12 @@ document.getElementById('registerForm').addEventListener('submit', function(e){
   const username = document.getElementById('username').value;
   const password = document.getElementById('password').value;
 
+  const elementary = document.getElementById('elementary').value;
+  const juniorhigh = document.getElementById('juniorhigh').value;
+  const seniorhigh = document.getElementById('seniorhigh').value;
+  const college = document.getElementById('college').value;
+  const course = document.getElementById('course').value;
+
   const file = document.getElementById('profile').files[0];
 
   const reader = new FileReader();
@@ -111,6 +131,11 @@ document.getElementById('registerForm').addEventListener('submit', function(e){
       address,
       username,
       password,
+      elementary,
+      juniorhigh,
+      seniorhigh,
+      college,
+      course,
       profilePic
     };
 
