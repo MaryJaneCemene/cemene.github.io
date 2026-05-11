@@ -2,59 +2,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <style>
-        body{
-            background:#f1f5f9;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            height:100vh;
-            font-family:Arial;
-        }
+  <style>
+    body{
+      background:#f1f5f9;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      height:100vh;
+      font-family:Arial;
+    }
 
-        .card-box{
-            background:white;
-            padding:35px;
-            border-radius:20px;
-            width:100%;
-            max-width:400px;
-            box-shadow:0 5px 20px rgba(0,0,0,0.1);
-        }
+    .card-box{
+      background:white;
+      padding:35px;
+      border-radius:20px;
+      width:100%;
+      max-width:400px;
+      box-shadow:0 5px 20px rgba(0,0,0,0.1);
+    }
 
-        .form-control{
-            margin-bottom:15px;
-        }
+    .form-control{
+      margin-bottom:15px;
+    }
 
-        .btn-primary{
-            width:100%;
-        }
-    </style>
+    .btn-primary{
+      width:100%;
+    }
+  </style>
 </head>
 <body>
 
 <div class="card-box">
 
-    <h3 class="mb-4">Login Account</h3>
+  <h3 class="mb-4">Login Account</h3>
 
-    <form id="loginForm">
+  <form id="loginForm">
 
-        <input type="text" id="username" class="form-control" placeholder="Username" required>
+    <input type="text" id="username" class="form-control" placeholder="Username" required>
 
-        <input type="password" id="password" class="form-control" placeholder="Password" required>
+    <input type="password" id="password" class="form-control" placeholder="Password" required>
 
-        <button type="submit" class="btn btn-primary">Login</button>
+    <button type="submit" class="btn btn-primary">
+      Login
+    </button>
 
-    </form>
+  </form>
 
-    <div class="text-center mt-3">
-        <a href="register.html">Create account</a>
-    </div>
+  <div class="text-center mt-3">
+    <a href="register.html">Create Account</a>
+  </div>
 
 </div>
 
@@ -62,34 +64,34 @@
 
 document.getElementById('loginForm').addEventListener('submit', function(e){
 
-    e.preventDefault();
+  e.preventDefault();
 
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
+  const username = document.getElementById('username').value;
+  const password = document.getElementById('password').value;
 
-    const savedData = localStorage.getItem('user_' + username);
+  const savedData = localStorage.getItem('user_' + username);
 
-    if(savedData){
+  if(savedData){
 
-        const user = JSON.parse(savedData);
+    const user = JSON.parse(savedData);
 
-        if(user.password === password){
+    if(user.password === password){
 
-            sessionStorage.setItem('activeUserData', JSON.stringify(user));
+      sessionStorage.setItem('activeUser', JSON.stringify(user));
 
-            window.location.href = "dashboard.html";
-
-        }else{
-
-            alert("Incorrect Password");
-
-        }
+      window.location.href = "dashboard.html";
 
     }else{
 
-        alert("Account not found");
+      alert("Incorrect Password");
 
     }
+
+  }else{
+
+    alert("Account not found");
+
+  }
 
 });
 
