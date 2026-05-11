@@ -1,97 +1,117 @@
+<!-- register.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register | MyApplication</title>
+    <title>Register</title>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <style>
-        body { background: #f8fafc; font-family: 'Inter', sans-serif; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; padding: 20px 0; }
-        .auth-card { background: white; padding: 40px; border-radius: 30px; box-shadow: 0 10px 25px rgba(0,0,0,0.02); width: 100%; max-width: 400px; }
-        .form-control { border: 2px solid #f1f5f9; padding: 12px; border-radius: 12px; }
-        .form-control:focus { border-color: #3b82f6; box-shadow: none; }
-        .btn-primary { background: #3b82f6; border: none; padding: 12px; border-radius: 12px; font-weight: 600; margin-top: 10px; transition: background-color 0.2s; }
-        .btn-primary:hover { background: #2563eb; }
-        .link-muted { color: #94a3b8; text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
-        .link-muted:hover { color: #3b82f6; }
+        body{
+            background:#f1f5f9;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            min-height:100vh;
+            font-family:Arial;
+        }
+
+        .card-box{
+            background:white;
+            padding:35px;
+            border-radius:20px;
+            width:100%;
+            max-width:450px;
+            box-shadow:0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .form-control{
+            margin-bottom:15px;
+        }
+
+        .btn-primary{
+            width:100%;
+        }
     </style>
 </head>
 <body>
 
-    <div class="auth-card">
-        <h4 class="fw-bold mb-1">Create Account</h4>
-        <p class="text-muted mb-4 small">Please fill in your details to sign up.</p>
-        
-        <div id="statusMsg" class="alert d-none p-2 text-center small rounded-3"></div>
-        
-        <form id="registerForm">
-            <div class="mb-3">
-                <label class="small fw-bold text-uppercase text-muted">Username</label>
-                <input type="text" id="username" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label class="small fw-bold text-uppercase text-muted">Password</label>
-                <input type="password" id="password" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label class="small fw-bold text-uppercase text-muted">Address</label>
-                <input type="text" id="address" class="form-control" required>
-            </div>
-            <div class="mb-4">
-                <label class="small fw-bold text-uppercase text-muted">Profile Picture</label>
-                <input type="file" id="profile_pic" class="form-control" accept="image/*" required>
-                <small class="text-muted" style="font-size: 0.75rem;">(Maximum size: 2MB)</small>
-            </div>
-            <button type="submit" class="btn btn-primary w-100 mb-3">Register Account</button>
-            <div class="text-center">
-                <a href="login.html" class="link-muted">Already have an account? Sign in</a>
-            </div>
-        </form>
+<div class="card-box">
+
+    <h3 class="mb-4">Create Account</h3>
+
+    <form id="registerForm">
+
+        <input type="text" id="fullname" class="form-control" placeholder="Full Name" required>
+
+        <input type="text" id="username" class="form-control" placeholder="Username" required>
+
+        <input type="email" id="email" class="form-control" placeholder="Email" required>
+
+        <input type="text" id="contact" class="form-control" placeholder="Contact Number" required>
+
+        <input type="text" id="address" class="form-control" placeholder="Address" required>
+
+        <input type="password" id="password" class="form-control" placeholder="Password" required>
+
+        <input type="file" id="profile_pic" class="form-control" accept="image/*" required>
+
+        <button type="submit" class="btn btn-primary">Register</button>
+
+    </form>
+
+    <div class="text-center mt-3">
+        <a href="login.html">Already have account?</a>
     </div>
 
-    <script>
-        document.getElementById('registerForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            const address = document.getElementById('address').value;
-            const fileInput = document.getElementById('profile_pic');
-            const statusMsgDiv = document.getElementById('statusMsg');
+</div>
 
-            // Reset alert styling
-            statusMsgDiv.className = 'alert p-2 text-center small rounded-3 d-none';
+<script>
 
-            if (fileInput.files.length > 0) {
-                const file = fileInput.files[0];
+document.getElementById('registerForm').addEventListener('submit', function(e){
 
-                if (file.size > 2 * 1024 * 1024) {
-                    statusMsgDiv.innerHTML = "Image is too large! Please choose a picture under 2MB.";
-                    statusMsgDiv.classList.add('alert-danger');
-                    statusMsgDiv.classList.remove('d-none');
-                    return; 
-                }
+    e.preventDefault();
 
-                const reader = new FileReader();
+    const fullname = document.getElementById('fullname').value;
+    const username = document.getElementById('username').value;
+    const email = document.getElementById('email').value;
+    const contact = document.getElementById('contact').value;
+    const address = document.getElementById('address').value;
+    const password = document.getElementById('password').value;
 
-                reader.onload = function(event) {
-                    const base64Image = event.target.result;
-                    const userAccount = { username, password, address, profilePic: base64Image };
+    const file = document.getElementById('profile_pic').files[0];
 
-                    try {
-                        localStorage.setItem('user_' + username, JSON.stringify(userAccount));
-                        statusMsgDiv.innerHTML = "Success! <a href='login.html' class='alert-link'>Sign in here</a>";
-                        statusMsgDiv.classList.add('alert-success');
-                        statusMsgDiv.classList.remove('d-none');
-                        document.getElementById('registerForm').reset();
-                    } catch (error) {
-                        statusMsgDiv.innerHTML = "Browser storage full. Please try a smaller image.";
-                        statusMsgDiv.classList.add('alert-danger');
-                        statusMsgDiv.classList.remove('d-none');
-                    }
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-    </script>
+    const reader = new FileReader();
+
+    reader.onload = function(event){
+
+        const profilePic = event.target.result;
+
+        const user = {
+            fullname,
+            username,
+            email,
+            contact,
+            address,
+            password,
+            profilePic
+        };
+
+        localStorage.setItem('user_' + username, JSON.stringify(user));
+
+        alert("Registration Successful!");
+
+        window.location.href = "login.html";
+
+    };
+
+    reader.readAsDataURL(file);
+
+});
+
+</script>
+
 </body>
 </html>
