@@ -2,151 +2,186 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <style>
+  <style>
 
-        body{
-            background:#f1f5f9;
-            font-family:Arial;
-        }
+    body{
+      background:#f1f5f9;
+      font-family:Arial;
+    }
 
-        .wrapper{
-            display:flex;
-            min-height:100vh;
-        }
+    .wrapper{
+      display:flex;
+      min-height:100vh;
+    }
 
-        .sidebar{
-            width:260px;
-            background:#0f172a;
-            color:white;
-            padding:30px;
-        }
+    .sidebar{
+      width:260px;
+      background:#0f172a;
+      color:white;
+      padding:30px;
+      text-align:center;
+    }
 
-        .main{
-            flex:1;
-            padding:40px;
-        }
+    .main{
+      flex:1;
+      padding:40px;
+    }
 
-        .card-box{
-            background:white;
-            border-radius:20px;
-            padding:30px;
-            box-shadow:0 5px 20px rgba(0,0,0,0.05);
-        }
+    .card-box{
+      background:white;
+      padding:30px;
+      border-radius:20px;
+      box-shadow:0 5px 20px rgba(0,0,0,0.05);
+    }
 
-        .profile-img{
-            width:120px;
-            height:120px;
-            border-radius:50%;
-            object-fit:cover;
-            border:4px solid #3b82f6;
-        }
+    .profile-img{
+      width:130px;
+      height:130px;
+      border-radius:50%;
+      object-fit:cover;
+      border:4px solid #3b82f6;
+    }
 
-    </style>
+    .info-box{
+      border:1px solid #ddd;
+      border-radius:12px;
+      padding:15px;
+      margin-bottom:15px;
+    }
+
+  </style>
 </head>
 <body>
 
 <div class="wrapper">
 
-    <div class="sidebar">
+  <div class="sidebar">
 
-        <h3>MY APP</h3>
+    <h3>MY PROFILE</h3>
 
-        <img id="profileImage" class="profile-img mt-4">
+    <img id="profileImage" class="profile-img mt-4">
 
-        <h5 class="mt-3" id="displayName"></h5>
+    <h4 class="mt-3" id="sidebarName"></h4>
 
-        <button onclick="logout()" class="btn btn-danger mt-4">
-            Logout
-        </button>
+    <button onclick="logout()" class="btn btn-danger mt-4">
+      Logout
+    </button>
 
-    </div>
+  </div>
 
-    <div class="main">
+  <div class="main">
 
-        <div class="card-box">
+    <div class="card-box">
 
-            <h2 class="mb-4">
-                Welcome,
-                <span id="welcomeName"></span>
-            </h2>
+      <h2 class="mb-4">
+        Welcome,
+        <span id="welcomeName"></span>
+      </h2>
 
-            <div class="row">
+      <div class="row">
 
-                <div class="col-md-6 mb-3">
-                    <div class="border rounded p-3">
-                        <strong>Full Name</strong>
-                        <p id="fullName"></p>
-                    </div>
-                </div>
-
-                <div class="col-md-6 mb-3">
-                    <div class="border rounded p-3">
-                        <strong>Email</strong>
-                        <p id="email"></p>
-                    </div>
-                </div>
-
-                <div class="col-md-6 mb-3">
-                    <div class="border rounded p-3">
-                        <strong>Contact</strong>
-                        <p id="contact"></p>
-                    </div>
-                </div>
-
-                <div class="col-md-6 mb-3">
-                    <div class="border rounded p-3">
-                        <strong>Address</strong>
-                        <p id="address"></p>
-                    </div>
-                </div>
-
-            </div>
-
+        <div class="col-md-6">
+          <div class="info-box">
+            <strong>Full Name</strong>
+            <p id="fullname"></p>
+          </div>
         </div>
 
+        <div class="col-md-6">
+          <div class="info-box">
+            <strong>Age</strong>
+            <p id="age"></p>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="info-box">
+            <strong>Gender</strong>
+            <p id="gender"></p>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="info-box">
+            <strong>Email</strong>
+            <p id="email"></p>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="info-box">
+            <strong>Contact Number</strong>
+            <p id="contact"></p>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="info-box">
+            <strong>Address</strong>
+            <p id="address"></p>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="info-box">
+            <strong>Username</strong>
+            <p id="username"></p>
+          </div>
+        </div>
+
+      </div>
+
     </div>
+
+  </div>
 
 </div>
 
 <script>
 
-const userData = sessionStorage.getItem('activeUserData');
+const userData = sessionStorage.getItem('activeUser');
 
 if(!userData){
 
-    window.location.href = "login.html";
+  window.location.href = "login.html";
 
 }else{
 
-    const user = JSON.parse(userData);
+  const user = JSON.parse(userData);
 
-    document.getElementById('profileImage').src = user.profilePic;
+  document.getElementById('profileImage').src = user.profilePic;
 
-    document.getElementById('displayName').innerText = user.username;
+  document.getElementById('sidebarName').innerText = user.username;
 
-    document.getElementById('welcomeName').innerText = user.username;
+  document.getElementById('welcomeName').innerText = user.fullname;
 
-    document.getElementById('fullName').innerText = user.fullname;
+  document.getElementById('fullname').innerText = user.fullname;
 
-    document.getElementById('email').innerText = user.email;
+  document.getElementById('age').innerText = user.age;
 
-    document.getElementById('contact').innerText = user.contact;
+  document.getElementById('gender').innerText = user.gender;
 
-    document.getElementById('address').innerText = user.address;
+  document.getElementById('email').innerText = user.email;
+
+  document.getElementById('contact').innerText = user.contact;
+
+  document.getElementById('address').innerText = user.address;
+
+  document.getElementById('username').innerText = user.username;
 
 }
 
 function logout(){
 
-    sessionStorage.removeItem('activeUserData');
+  sessionStorage.removeItem('activeUser');
 
-    window.location.href = "login.html";
+  window.location.href = "login.html";
 
 }
 
